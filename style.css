@@ -1,0 +1,54 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    color: black;
+}
+
+body {
+    text-align: left;
+    align-content: left;
+    align-items: left;
+    background:gray;
+}
+
+h1{
+    margin-top: 20px;
+    font-size: 3em;
+    font-family: 'Kalam';
+    font-weight: 700;
+    margin-left: 50px;
+}
+
+h2 {
+    font-family: 'Kalam';
+    font-weight: 300;
+    font-size: 2em;
+    margin-left: 50px;
+}
+
+button {
+    background: whitesmoke;
+    margin-top: 50px;
+    margin-left: 50px;    
+    border-radius: 6px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    outline: none;
+}
+
+button:hover {
+    position: relative;
+    top: 2px;
+    border-bottom: 0;
+    margin-bottom: 8px;
+    background: darkslategray;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 1);
+}
+
+form {
+    margin-left: 50px;
+}
