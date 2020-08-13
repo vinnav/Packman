@@ -159,6 +159,6 @@ function calcolo_prezzi(){
     } else if(pesoTNT > 125 && pesoTNT <= 150){
         costTNT = 56
     }
-    console.log("Costo TNT: " + costTNTPersonal)
+    console.log("Costo TNT Personal: " + costTNTPersonal)
 
 }
