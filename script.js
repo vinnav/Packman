@@ -74,29 +74,29 @@ function calcolo_prezzi(){
     console.log("Costo SDA: " + costSDA)
     // TNT
     if(pesoTNT <= 1){
-        costTNT = 9.50
+        costTNT = 10.80
     } else if(pesoTNT > 1 && pesoTNT <= 3){
-        costTNT = 10.50
-    } else if(pesoTNT > 3 && pesoTNT <= 5){
         costTNT = 12
+    } else if(pesoTNT > 3 && pesoTNT <= 5){
+        costTNT = 13.50
     } else if(pesoTNT > 5 && pesoTNT <= 10){
-        costTNT = 15
+        costTNT = 17
     } else if(pesoTNT > 10 && pesoTNT <= 20){
-        costTNT = 18
+        costTNT = 19.50
     } else if(pesoTNT > 20 && pesoTNT <= 30){
-        costTNT = 20
+        costTNT = 22
     } else if(pesoTNT > 30 && pesoTNT <= 40){
-        costTNT = 25
+        costTNT = 27
     } else if(pesoTNT > 40 && pesoTNT <= 50){
-        costTNT = 28
+        costTNT = 33
     } else if(pesoTNT > 50 && pesoTNT <= 70){
-        costTNT = 38
+        costTNT = 42
     } else if(pesoTNT > 70 && pesoTNT <= 100){
-        costTNT = 48
-    } else if(pesoTNT > 100 && pesoTNT <= 125){
         costTNT = 55
+    } else if(pesoTNT > 100 && pesoTNT <= 125){
+        costTNT = 70
     } else if(pesoTNT > 125 && pesoTNT <= 150){
-        costTNT = 65
+        costTNT = 80
     }
     console.log("Costo TNT: " + costTNT)
     // NUOVA POSTA
@@ -159,6 +159,6 @@ function calcolo_prezzi(){
     } else if(pesoTNT > 125 && pesoTNT <= 150){
         costTNT = 56
     }
-    console.log("Costo TNT Personal: " + costTNTPersonal)
+    console.log("Costo TNT: " + costTNTPersonal)
 
 }
