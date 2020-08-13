@@ -50,6 +50,8 @@ function peso_volume(){
 let costSDA = 0
 let costTNT = 0
 let costNP = 0
+let costSDAPersonal = 0
+let costTNTPersonal = 0
 function calcolo_prezzi(){
     // SDA
     if(pesoSDA <= 2){
@@ -112,4 +114,51 @@ function calcolo_prezzi(){
         costNP = 55
     }
     console.log("Costo NP: " + costNP)
+    // SDA Personal
+    if(pesoSDA <= 2){
+        costSDAPersonal = 6.30
+    } else if(pesoSDA > 2 && pesoSDA <= 5){
+        costSDAPersonal = 7.30
+    } else if(pesoSDA > 5 && pesoSDA <= 10){
+        costSDAPersonal = 8.60
+    } else if(pesoSDA > 10 && pesoSDA <= 20){
+        costSDAPersonal = 10.40
+    } else if(pesoSDA > 20 && pesoSDA <= 30){
+        costSDAPersonal = 12.70
+    } else if(pesoSDA > 30 && pesoSDA <= 50){
+        costSDAPersonal = 16.50
+    } else if(pesoSDA > 50 && pesoSDA <= 70){
+        costSDAPersonal = 22.50
+    } else if(pesoSDA > 70 && pesoSDA <= 100){
+        costSDAPersonal = 30
+    }
+    console.log("Costo Personal: " + costSDAPersonal)
+    // TNT Personal
+    if(pesoTNT <= 1){
+        costTNTPersonal = 8.60
+    } else if(pesoTNT > 1 && pesoTNT <= 3){
+        costTNTPersonal = 10
+    } else if(pesoTNT > 3 && pesoTNT <= 5){
+        costTNTPersonal = 11.30
+    } else if(pesoTNT > 5 && pesoTNT <= 10){
+        costTNTPersonal = 13.13
+    } else if(pesoTNT > 10 && pesoTNT <= 20){
+        costTNTPersonal = 15.20
+    } else if(pesoTNT > 20 && pesoTNT <= 30){
+        costTNTPersonal = 16.80
+    } else if(pesoTNT > 30 && pesoTNT <= 40){
+        costTNTPersonal = 19.80
+    } else if(pesoTNT > 40 && pesoTNT <= 50){
+        costTNTPersonal = 22.25
+    } else if(pesoTNT > 50 && pesoTNT <= 70){
+        costTNT = 27.35
+    } else if(pesoTNT > 70 && pesoTNT <= 100){
+        costTNT = 37.70
+    } else if(pesoTNT > 100 && pesoTNT <= 125){
+        costTNT = 53.45
+    } else if(pesoTNT > 125 && pesoTNT <= 150){
+        costTNT = 56
+    }
+    console.log("Costo TNT Personal: " + costTNTPersonal)
+
 }
