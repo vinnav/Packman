@@ -5,6 +5,7 @@ submit.addEventListener("click", submitted);
 let peso = document.getElementById('peso').value
 let pesoVolumetricoSDA = 0
 let pesoVolumetricoTNT = 0
+let pesoVolumetricoNP = 0
 function submitted(){
     let altezza = document.getElementById('altezza').value
     let lunghezza = document.getElementById('lunghezza').value
@@ -12,13 +13,15 @@ function submitted(){
     peso = document.getElementById('peso').value
     pesoVolumetricoSDA = altezza*lunghezza*larghezza/3333
     pesoVolumetricoTNT = altezza/100*lunghezza/100*larghezza/100*250
-    console.log("Il peso SDA é: " + pesoVolumetricoSDA + " Il peso TNT é: " + pesoVolumetricoTNT);
+    pesoVolumetricoNP = altezza*lunghezza*larghezza/5000
+    console.log("Il peso SDA é: " + pesoVolumetricoSDA + " Il peso TNT é: " + pesoVolumetricoTNT + " Il peso NP é: " + pesoVolumetricoNP);
     peso_volume()
     calcolo_prezzi()
 }
 
 let pesoSDA = 0
 let pesoTNT = 0
+let pesoNP = 0
 
 function peso_volume(){
     // SDA
@@ -35,10 +38,18 @@ function peso_volume(){
         pesoTNT = pesoVolumetricoTNT;
     }
     console.log("PesoVolume ok")
+    
+    // NUOVA POSTA
+    if (peso > pesoVolumetricoNP){
+        pesoNP = peso;
+    } else {
+        pesoNP = pesoVolumetricoNP;
+    }
 }
 
 let costSDA = 0
 let costTNT = 0
+let costNP = 0
 function calcolo_prezzi(){
     // SDA
     if(pesoSDA <= 2){
@@ -86,4 +97,19 @@ function calcolo_prezzi(){
         costTNT = 65
     }
     console.log("Costo TNT: " + costTNT)
+    // NUOVA POSTA
+    if(pesoNP <= 5){
+        costNP = 10
+    } else if(pesoNP > 5 && pesoNP <= 20){
+        costNP = 16
+    } else if(pesoNP > 20 && pesoNP <= 30){
+        costNP = 20
+    } else if(pesoNP > 30 && pesoNP <= 50){
+        costNP = 33
+    } else if(pesoNP > 50 && pesoNP <= 75){
+        costNP = 43
+    } else if(pesoNP > 75 && pesoNP <= 100){
+        costNP = 55
+    }
+    console.log("Costo NP: " + costNP)
 }
