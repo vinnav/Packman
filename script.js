@@ -50,6 +50,7 @@ function peso_volume(){
 let costSDA = 0
 let costTNT = 0
 let costNP = 0
+let costGLSPersonal = 0
 let costSDAPersonal = 0
 let costTNTPersonal = 0
 function calcolo_prezzi(){
@@ -151,14 +152,32 @@ function calcolo_prezzi(){
     } else if(pesoTNT > 40 && pesoTNT <= 50){
         costTNTPersonal = 22.25
     } else if(pesoTNT > 50 && pesoTNT <= 70){
-        costTNT = 27.35
+        costTNTPersonal = 27.35
     } else if(pesoTNT > 70 && pesoTNT <= 100){
-        costTNT = 37.70
+        costTNTPersonal = 37.70
     } else if(pesoTNT > 100 && pesoTNT <= 125){
-        costTNT = 53.45
+        costTNTPersonal = 53.45
     } else if(pesoTNT > 125 && pesoTNT <= 150){
-        costTNT = 56
+        costTNTPersonal = 56
     }
     console.log("Costo TNT Personal: " + costTNTPersonal)
+    if(pesoSDA <= 3){
+        costGLSPersonal = 6.60
+    } else if(pesoSDA > 3 && pesoSDA <= 10){
+        costGLSPersonal = 10.44
+    } else if(pesoSDA > 10 && pesoSDA <= 30){
+        costGLSPersonal = 17
+    } else if(pesoSDA > 30 && pesoSDA <= 50){
+        costGLSPersonal = 23.50
+    } else if(pesoSDA > 50 && pesoSDA <= 75){
+        costGLSPersonal = 31.30
+    } else if(pesoSDA > 75 && pesoSDA <= 100){
+        costGLSPersonal = 36.35
+    } else if(pesoSDA > 100){
+        costGLSPersonal = Math.floor(pesoSDA/10)*3.70
+    } else if(pesoSDA > 70 && pesoSDA <= 100){
+        costGLSPersonal = 48
+    }
+    console.log("Costo GLS Personal: " + costGLSPersonal)
 
 }
