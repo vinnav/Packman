@@ -181,3 +181,5 @@ function calcolo_prezzi(){
     console.log("Costo GLS Personal: " + costGLSPersonal)
 
 }
+
+// Foreign deliveries
