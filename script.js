@@ -214,7 +214,8 @@ function calcolo_prezzi_andorra(){
     }
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*7.35
-    }        
+    }
+}        
 function calcolo_prezzi_austria(){
     // SDA
     if(pesoSDA <= 5){
@@ -229,6 +230,7 @@ function calcolo_prezzi_austria(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*2.60
     }
+}
 function calcolo_prezzi_azzorre(){
     // SDA
     if(pesoSDA <= 5){
@@ -242,6 +244,8 @@ function calcolo_prezzi_azzorre(){
     }
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*7.35
+    }
+}
 function calcolo_prezzi_belgio(){
     // SDA
     if(pesoSDA <= 5){
@@ -256,6 +260,7 @@ function calcolo_prezzi_belgio(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*3.05
     }
+}
 function calcolo_prezzi_bosnia_e_erzegovina(){
     // SDA
     if(pesoSDA <= 5){
@@ -270,6 +275,7 @@ function calcolo_prezzi_bosnia_e_erzegovina(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*2.98
     }
+}
 function calcolo_prezzi_bulgaria(){
     // SDA
     if(pesoSDA <= 5){
@@ -284,6 +290,7 @@ function calcolo_prezzi_bulgaria(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*2.60
     }
+}
 function calcolo_prezzi_ceuta(){
     // SDA
     if(pesoSDA <= 5){
@@ -297,6 +304,8 @@ function calcolo_prezzi_ceuta(){
     }
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*7.35
+    }
+}
 function calcolo_prezzi_corsica(){
     // SDA
     if(pesoSDA <= 5){
@@ -310,6 +319,8 @@ function calcolo_prezzi_corsica(){
     }
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*4.10
+    }
+}
 function calcolo_prezzi_croazia(){
     // SDA
     if(pesoSDA <= 5){
@@ -324,6 +335,7 @@ function calcolo_prezzi_croazia(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*2.98
     }
+}
 function calcolo_prezzi_francia(){
     // SDA
     if(pesoSDA <= 5){
@@ -338,6 +350,7 @@ function calcolo_prezzi_francia(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*4.10
     }
+}
 function calcolo_prezzi_germania(){
     // SDA
     if(pesoSDA <= 5){
@@ -352,6 +365,7 @@ function calcolo_prezzi_germania(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*2.60
     }
+}
 function calcolo_prezzi_gran_bretagna(){
     // SDA
     if(pesoSDA <= 5){
@@ -366,6 +380,7 @@ function calcolo_prezzi_gran_bretagna(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*3.33
     }
+}
 function calcolo_prezzi_irlanda_del_nord(){
     // SDA
     if(pesoSDA <= 5){
@@ -380,6 +395,7 @@ function calcolo_prezzi_irlanda_del_nord(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*8.09
     }
+}
 function calcolo_prezzi_irlanda(){
     // SDA
     if(pesoSDA <= 5){
@@ -393,6 +409,8 @@ function calcolo_prezzi_irlanda(){
     }
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*8.09
+    }
+}
 function calcolo_prezzi_isole_canarie(){
     // SDA
     if(pesoSDA <= 5){
@@ -406,6 +424,8 @@ function calcolo_prezzi_isole_canarie(){
     }
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*7.35
+    }
+}
 function calcolo_prezzi_isole_channel(){
     // SDA
     if(pesoSDA <= 5){
@@ -419,6 +439,8 @@ function calcolo_prezzi_isole_channel(){
     }
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*3.33
+    }
+}
 function calcolo_prezzi_lussemburgo(){
     // SDA
     if(pesoSDA <= 5){
@@ -433,6 +455,7 @@ function calcolo_prezzi_lussemburgo(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*2.98
     }        
+}
 function calcolo_prezzi_madeira(){
     // SDA
     if(pesoSDA <= 5){
@@ -446,6 +469,8 @@ function calcolo_prezzi_madeira(){
     }
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*7.35
+    }
+}
 function calcolo_prezzi_melilla(){
     // SDA
     if(pesoSDA <= 5){
@@ -459,6 +484,8 @@ function calcolo_prezzi_melilla(){
     }
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*7.35
+    }
+}
 function calcolo_prezzi_montenegro(){
     // SDA
     if(pesoSDA <= 5){
@@ -473,6 +500,7 @@ function calcolo_prezzi_montenegro(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*2.98
     }        
+}
 function calcolo_prezzi_olanda(){
     // SDA
     if(pesoSDA <= 5){
@@ -487,6 +515,7 @@ function calcolo_prezzi_olanda(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*2.60
     }        
+}
 function calcolo_prezzi_polonia(){
     // SDA
     if(pesoSDA <= 5){
@@ -501,6 +530,7 @@ function calcolo_prezzi_polonia(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*1.10
     }        
+}
 function calcolo_prezzi_portogallo(){
     // SDA
     if(pesoSDA <= 5){
@@ -515,6 +545,7 @@ function calcolo_prezzi_portogallo(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*6.05
     }        
+}
 function calcolo_prezzi_repubblica_ceca(){
     // SDA
     if(pesoSDA <= 5){
@@ -529,6 +560,7 @@ function calcolo_prezzi_repubblica_ceca(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*2.83
     }        
+}
 function calcolo_prezzi_romania(){
     // SDA
     if(pesoSDA <= 5){
@@ -543,6 +575,7 @@ function calcolo_prezzi_romania(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*2.98
     }        
+}
 function calcolo_prezzi_serbia(){
     // SDA
     if(pesoSDA <= 5){
@@ -557,6 +590,7 @@ function calcolo_prezzi_serbia(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*2.98
     }        
+}
 function calcolo_prezzi_slovacchia(){
     // SDA
     if(pesoSDA <= 5){
@@ -571,6 +605,7 @@ function calcolo_prezzi_slovacchia(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*2.98
     }        
+}
 function calcolo_prezzi_slovenia(){
     // SDA
     if(pesoSDA <= 5){
@@ -585,6 +620,7 @@ function calcolo_prezzi_slovenia(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*2.61
     }        
+}
 function calcolo_prezzi_spagna(){
     // SDA
     if(pesoSDA <= 5){
@@ -599,6 +635,7 @@ function calcolo_prezzi_spagna(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*4.10
     }        
+}
 function calcolo_prezzi_svizzera(){
     // SDA
     if(pesoSDA <= 5){
@@ -613,6 +650,7 @@ function calcolo_prezzi_svizzera(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*1.10
     }        
+}
 function calcolo_prezzi_lietchtenstein(){
     // SDA
     if(pesoSDA <= 5){
@@ -627,6 +665,7 @@ function calcolo_prezzi_lietchtenstein(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*1.10
     }        
+}
 function calcolo_prezzi_ungheria(){
     // SDA
     if(pesoSDA <= 5){
@@ -641,7 +680,7 @@ function calcolo_prezzi_ungheria(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*2.98
     }
-
+}
 function calcolo_prezzi_paese(){
     // SDA
     if(pesoSDA <= 5){
@@ -656,7 +695,7 @@ function calcolo_prezzi_paese(){
     if(numeroColli > 1){
         costSDA += (numeroColli-1)*2.98
     }
-
+}
 
 // manca corea del nord, cuba, iran, palestina, siria, somalia
 // attenzione repubblica ceca, repubblica centrafrican, inghilterra, st.vincent, nevis
@@ -762,209 +801,3 @@ function calcolo_costo_UPS_express(){
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-"afghanistan"
-"albania"
-"algeria"
-"andorra"
-"angola"
-"antiguaEBarbuda"
-"arabiaSaudita"
-"argentina"
-"armenia"
-"australia"
-"austria"
-"azerbaigian"
-"bahamas"
-"bahrein"
-"bangladesh"
-"barbados"
-"belgio"
-"belize"
-"benin"
-"bhutan"
-"bielorussia"
-"birmania"
-"bolivia"
-"bosniaEdErzegovinaegovina"
-"botswana"
-"brasile"
-"brunei"
-"bulgaria"
-"burkinaFaso"
-"burundi"
-"cambogia"
-"camerun"
-"canada"
-"capoVerde"
-"ciad"
-"cile"
-"cina"
-"cipro"
-"colombia"
-"comore"
-"repDelCongo"
-"rdDelCongo"
-"coreaDelNord"
-"coreaDelSud"
-"costaDAvorio"
-"croazia"
-"cuba"
-"danimarca"
-"dominica"
-"ecuador"
-"egitto"
-"elSalvador"
-"emiratiArabiUniti"
-"eritrea"
-"estonia"
-"etiopia"
-"figi"
-"filippine"
-"finlandia"
-"francia"
-"gabon"
-"georgia"
-"germania"
-"ghana"
-"giamaica"
-"giappone"
-"gibuti"
-"giordania"
-"grecia"
-"grenada"
-"guatemala"
-"guinea"
-"guineaBissau"
-"guineaEquatoriale"
-"guyana"
-"haiti"
-"honduras"
-"india"
-"indonesia"
-"iran"
-"iraq"
-"irlanda"
-"islanda"
-"isoleMarshall"
-"isoleSolomone"
-"israele"
-"Italia"
-"kazakistan"
-"kenya"
-"kirghizistan"
-"kuwait"
-"laos"
-"lesotho"
-"lettonia"
-"libano"
-"liberia"
-"libia"
-"liechtenstein"
-"lituania"
-"lussemburgo"
-"macedoniaDelNord"
-"madagascar"
-"malawi"
-"maldive"
-"malaysia"
-"mali"
-"malta"
-"marocco"
-"mauritania"
-"mauritius"
-"messico"
-"micronesia"
-"moldavia"
-"monaco"
-"mongolia"
-"montenegro"
-"mozambico"
-"namibia"
-"nauru"
-"nepal"
-"nicaragua"
-"niger"
-"nigeria"
-"norvegia"
-"nuovaZelanda"
-"oman"
-"paesiBassi"
-"pakistan"
-"palau"
-"palestina"
-"panama"
-"papuaNuovaGuinea"
-"paraguay"
-"peru"
-"polonia"
-"portogallo"
-"qatar"
-"regnoUnito"
-"repubblicaCeca"
-"repubblicaCentrafricana"
-"repubblicaDominicaDominicana"
-"romania"
-"ruanda"
-"russia"
-"saintKittsENevis"
-"saintLucia"
-"saintVincentEGrenadine"
-"samoa"
-"sanMarino"
-"saoTomeEPrincipe"
-"senegal"
-"serbia"
-"seychelles"
-"sierraLeone"
-"singapore"
-"siria"
-"slovacchia"
-"slovenia"
-"somalia"
-"spagna"
-"statiUniti"
-"sudafrica"
-"sudan"
-"sudanDelSud"
-"suriname"
-"svezia"
-"svizzera"
-"swaziland"
-"tagikistan"
-"taiwan"
-"tanzania"
-"thailandia"
-"timorEst"
-"togo"
-"tonga"
-"trinidadETobago"
-"tunisia"
-"turchia"
-"turkmenistan"
-"tuvalu"
-"ucraina"
-"uganda"
-"ungheria"
-"uruguay"
-"uzbekistan"
-"vanuatu"
-"cittaDelVaticano"
-"venezuela"
-"vietnam"
-"yemen"
-"zambia"
-"zimbabwe"
