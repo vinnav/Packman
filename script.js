@@ -1,65 +1,109 @@
 // Init and event listener
-let submit = document.getElementById("submit");
-submit.addEventListener("click", submitted);
-
-let peso = document.getElementById('peso').value
-let pesoVolumetricoSDA = 0
-let pesoVolumetricoTNT = 0
-let pesoVolumetricoNP = 0
 let summary = document.getElementById('summary');
 document.getElementById("addPack").addEventListener("click", fill_colli)
-function submitted(){
-    let altezza = document.getElementById('altezza').value
-    let lunghezza = document.getElementById('lunghezza').value
-    let larghezza = document.getElementById('larghezza').value
-    let country = document.getElementById('inputDa').value
-    peso = document.getElementById('peso').value
-    pesoVolumetricoSDA = altezza*lunghezza*larghezza/3333
-    pesoVolumetricoTNT = altezza/100*lunghezza/100*larghezza/100*250
-    pesoVolumetricoNP = altezza*lunghezza*larghezza/5000
-    console.log("Il peso SDA é: " + pesoVolumetricoSDA + " Il peso TNT é: " + pesoVolumetricoTNT + " Il peso NP é: " + pesoVolumetricoNP);
-    console.log("Il paese é: " + country)
-    peso_volume()
-    calcolo_prezzi()
-    document.getElementById("dati").style.visibility = "hidden";
-    document.getElementById("priceTable").style.visibility = "visible";
-}
+let submit = document.getElementById("submit");
+submit.addEventListener("click", submitted);
+let priceTable = document.getElementById("priceTable");
 
+// MAIN VARIABLES
+    // weights
+let pesoreale = 0
 let pesoSDA = 0
 let pesoTNT = 0
-let pesoNP = 0
-
-function peso_volume(){
-    // SDA
-    if (peso > pesoVolumetricoSDA){
-        pesoSDA = peso;
-    } else {
-        pesoSDA = pesoVolumetricoSDA;
-    }
-
-    // TNT
-    if (peso > pesoVolumetricoTNT){
-        pesoTNT = peso;
-    } else {
-        pesoTNT = pesoVolumetricoTNT;
-    }
-    console.log("PesoVolume ok")
-    
-    // NUOVA POSTA
-    if (peso > pesoVolumetricoNP){
-        pesoNP = peso;
-    } else {
-        pesoNP = pesoVolumetricoNP;
-    }
-}
-
+let pesoNPUPS = 0
+let pesoVolumetricoSDA = 0
+let pesoVolumetricoTNT = 0
+let pesovolumetricoNPUPS = 0
+    // costs
 let costSDA = 0
 let costTNT = 0
 let costNP = 0
 let costGLSPersonal = 0
 let costSDAPersonal = 0
 let costTNTPersonal = 0
-function calcolo_prezzi(){
+let costUPS_express = 0
+let costUPS_saver = 0
+let packs = 0
+
+
+// MAIN FUNCTIONS
+    // add packs, updating the total weight and the interface
+function fill_colli(){
+    let altezza = document.getElementById('altezza').value
+    let lunghezza = document.getElementById('lunghezza').value
+    let larghezza = document.getElementById('larghezza').value
+    let peso = parseInt(document.getElementById('peso').value)
+    pesoVolumetricoSDA = altezza*lunghezza*larghezza/3333
+    pesoVolumetricoTNT = altezza/100*lunghezza/100*larghezza/100*250
+    pesovolumetricoNPUPS = altezza*lunghezza*larghezza/5000
+    peso_volume(peso, pesoVolumetricoSDA, pesoVolumetricoTNT, pesovolumetricoNPUPS)
+    packs++
+    summary.innerHTML += "<p>Collo " + altezza + "x" + lunghezza + "x" + larghezza + ", peso: " + peso + "</p>"
+}
+    // converts weight to volumetric weight if needed
+function peso_volume(peso, pesoVolumetricoSDA, pesoVolumetricoTNT, pesovolumetricoNPUPS){
+    // SDA
+    pesoreale = peso
+    if (peso > pesoVolumetricoSDA){
+        pesoSDA += peso
+    } else {
+        pesoSDA += pesoVolumetricoSDA;
+    }
+
+    // TNT
+    if (peso > pesoVolumetricoTNT){
+        pesoTNT += peso;
+    } else {
+        pesoTNT += pesoVolumetricoTNT;
+    }
+    console.log("PesoVolume ok")
+    
+    // NUOVA POSTA
+    if (peso > pesovolumetricoNPUPS){
+        pesoNPUPS += peso;
+    } else {
+        pesoNPUPS += pesovolumetricoNPUPS;
+    }
+}
+    // submit the data and update the page to show the costs
+function submitted(){
+    if(packs == 0){
+        alert("Aggiungi un collo per favore")
+        return
+    }
+    let country = document.getElementById('toCountry').value
+    console.log("Peso SDA: " + pesoSDA + " peso TNT: " + pesoTNT + " peso NP: " + pesoNPUPS);
+    priceTable.innerHTML += "<br>Peso SDA: " + pesoSDA + " peso TNT: " + pesoTNT + " peso NP: " + pesoNPUPS
+    console.log("Paese di destinazione é: " + country)
+    priceTable.innerHTML += "<br>Paese di destinazione: " + country
+    console.log("Numero di colli: " + packs)
+    priceTable.innerHTML += "<br>Numero di colli: " + packs
+    calcolo_prezzi_italia(pesoSDA, pesoTNT, pesoNPUPS)
+    calcolo_prezzi_SDA_estero(country, pesoreale, packs, altezza+2*lunghezza+2*larghezza)
+    priceTable.innerHTML += "<br><br>Costo SDA: " + costSDA.toFixed(2)
+    priceTable.innerHTML += "<br>Costo TNT: " + costTNT.toFixed(2)
+    priceTable.innerHTML += "<br>Costo NP: " + costNP.toFixed(2)
+    priceTable.innerHTML += "<br>Costo SDA Personal: " + costSDAPersonal.toFixed(2)
+    priceTable.innerHTML += "<br>Costo TNT Personal: " + costTNTPersonal.toFixed(2)
+    priceTable.innerHTML += "<br>Costo GLS Personal: " + costGLSPersonal.toFixed(2)
+    //calcolo_costo_UPS_express(ups_area[country][0], pesoNPUPS)
+    //calcolo_costo_UPS_express_saver(ups_area[country][1], pesoNPUPS)
+    //console.log("UPS Express: " + costUPS_express + " UPS Saver: " + costUPS_saver)
+    document.getElementById("dati").style.visibility = "hidden";
+    document.getElementById("priceTable").style.visibility = "visible";
+}
+
+// COST CALCULATIONS FUNCTIONS
+    // italy-italy costs
+    // takes pesoSDA, pesoTNT, pesoNP
+    // returns:
+    // - SDA
+    // - TNT 
+    // - Nuova Posta
+    // - SDA Personal
+    // - TNT Personal
+    // - GLS Personal
+function calcolo_prezzi_italia(pesoSDA, pesoTNT, pesoNPUPS){
     // SDA
     if(pesoSDA <= 2){
         costSDA = 8.50
@@ -107,17 +151,17 @@ function calcolo_prezzi(){
     }
     console.log("Costo TNT: " + costTNT)
     // NUOVA POSTA
-    if(pesoNP <= 5){
+    if(pesoNPUPS <= 5){
         costNP = 10
-    } else if(pesoNP > 5 && pesoNP <= 20){
+    } else if(pesoNPUPS > 5 && pesoNPUPS <= 20){
         costNP = 16
-    } else if(pesoNP > 20 && pesoNP <= 30){
+    } else if(pesoNPUPS > 20 && pesoNPUPS <= 30){
         costNP = 20
-    } else if(pesoNP > 30 && pesoNP <= 50){
+    } else if(pesoNPUPS > 30 && pesoNPUPS <= 50){
         costNP = 33
-    } else if(pesoNP > 50 && pesoNP <= 75){
+    } else if(pesoNPUPS > 50 && pesoNPUPS <= 75){
         costNP = 43
-    } else if(pesoNP > 75 && pesoNP <= 100){
+    } else if(pesoNPUPS > 75 && pesoNPUPS <= 100){
         costNP = 55
     }
     console.log("Costo NP: " + costNP)
@@ -186,528 +230,656 @@ function calcolo_prezzi(){
     } else if(pesoSDA > 100){
         costGLSPersonal = Math.floor(pesoSDA/10)*2.52
     }
-
     console.log("Costo GLS Personal: " + costGLSPersonal)
 
 }
+    // Foreign deliveries SDA
+function calcolo_prezzi_SDA_estero(country, pesoSDA, packs, perimeter){
+    if(country == "andorra"){
+        if(pesoSDA <= 5){
+            costSDA = 66.85
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 71.85
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 80.40
+        } else if(pesoSDA > 31.5){
+            costSDA = 80.40+Math.floor(pesoSDA-31)*2.34
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*7.35
+        }
+        if(perimeter > 330){
+            costSDA += 8
+        }
+        if(perimeter > 450){
+            costSDA = 117.60+80.40+Math.floor(pesoSDA-31)*2.34
+        }
+    }
+    if(country == "austria"){
+        if(pesoSDA <= 5){
+            costSDA = 10.2
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 15.30
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 22.00
+        } else if(pesoSDA > 31.5){
+            costSDA = 22+Math.floor(pesoSDA-31)*0.51
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*2.60
+        }
+        if(perimeter > 330){
+            costSDA += 8
+        }
+        if(perimeter > 450){
+            costSDA = 117.60+80.40+Math.floor(pesoSDA-31)*2.34
+        }
+    }
+    if(country == "azzorre"){
+        if(pesoSDA <= 5){
+            costSDA = 40.80
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 47.90
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 54.80
+        } else if(pesoSDA > 31.5){
+            costSDA = 54.80+Math.floor(pesoSDA-31)*2.34
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*7.35
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "belgio"){
+        if(pesoSDA <= 5){
+            costSDA = 10.2
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 16.50
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 24.00
+        } else if(pesoSDA > 31.5){
+            costSDA = 24+Math.floor(pesoSDA-31)*0.56
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*3.05
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "bosnia_e_erzegovina"){
+        if(pesoSDA <= 5){
+            costSDA = 13.85
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 19.25
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 27.35
+        } else if(pesoSDA > 31.5){
+            costSDA = 27.35+Math.floor(pesoSDA-31)*0.55
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*2.98
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "bulgaria"){
+        if(pesoSDA <= 5){
+            costSDA = 13.30
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 20.40
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 27
+        } else if(pesoSDA > 31.5){
+            costSDA = 27+Math.floor(pesoSDA-31)*0.55
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*2.60
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "ceuta"){
+        if(pesoSDA <= 5){
+            costSDA = 68.85
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 71.85
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 80.40
+        } else if(pesoSDA > 31.5){
+            costSDA = 80.40+Math.floor(pesoSDA-31)*2.34
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*7.35
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "corsica"){
+        if(pesoSDA <= 5){
+            costSDA = 49
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 53
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 60.06
+        } else if(pesoSDA > 31.5){
+            costSDA = 60.06+Math.floor(pesoSDA-31)*1.12
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*4.10
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "croazia"){
+        if(pesoSDA <= 5){
+            costSDA = 13.85
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 19.25
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 27.35
+        } else if(pesoSDA > 31.5){
+            costSDA = 27.35+Math.floor(pesoSDA-31)*0.55
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*2.98
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "francia"){
+        if(pesoSDA <= 5){
+            costSDA = 11.25
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 15
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 22.40
+        } else if(pesoSDA > 31.5){
+            costSDA = 22.40+Math.floor(pesoSDA-31)*0.51
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*4.10
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "germania"){
+        if(pesoSDA <= 5){
+            costSDA = 10.20
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 14.50
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 21.80
+        } else if(pesoSDA > 31.5){
+            costSDA = 21.80+Math.floor(pesoSDA-31)*0.52
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*2.60
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "gran_bretagna"){
+        if(pesoSDA <= 5){
+            costSDA = 11.25
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 18
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 25
+        } else if(pesoSDA > 31.5){
+            costSDA = 25+Math.floor(pesoSDA-31)*0.70
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*3.33
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "irlanda_del_nord"){
+        if(pesoSDA <= 5){
+            costSDA = 31.35
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 35.65
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 43.35
+        } else if(pesoSDA > 31.5){
+            costSDA = 43.35+Math.floor(pesoSDA-31)*0.79
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*8.09
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "irlanda"){
+        if(pesoSDA <= 5){
+            costSDA = 31.35
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 35.65
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 43.35
+        } else if(pesoSDA > 31.5){
+            costSDA = 43.35+Math.floor(pesoSDA-31)*0.65
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*8.09
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "isole_canarie"){
+        if(pesoSDA <= 5){
+            costSDA = 68.85
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 71.85
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 80.40
+        } else if(pesoSDA > 31.5){
+            costSDA = 80.40+Math.floor(pesoSDA-31)*2.34
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*7.35
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "isole_channel"){
+        if(pesoSDA <= 5){
+            costSDA = 11.25
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 18
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 25
+        } else if(pesoSDA > 31.5){
+            costSDA = 25+Math.floor(pesoSDA-31)*0.70
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*3.33
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "lussemburgo"){
+        if(pesoSDA <= 5){
+            costSDA = 10.2
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 16
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 24
+        } else if(pesoSDA > 31.5){
+            costSDA = 24+Math.floor(pesoSDA-31)*0.55
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*2.98
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "madeira"){
+        if(pesoSDA <= 5){
+            costSDA = 40.80
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 47.90
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 54.80
+        } else if(pesoSDA > 31.5){
+            costSDA = 54.80+Math.floor(pesoSDA-31)*2.34
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*7.35
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "melilla"){
+        if(pesoSDA <= 5){
+            costSDA = 68.85
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 71.85
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 80.40
+        } else if(pesoSDA > 31.5){
+            costSDA = 80.40+Math.floor(pesoSDA-31)*2.34
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*7.35
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "montenegro"){
+        if(pesoSDA <= 5){
+            costSDA = 14.10
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 19.95
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 28.95
+        } else if(pesoSDA > 31.5){
+            costSDA = 28.95+Math.floor(pesoSDA-31)*0.59
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*2.98
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "olanda"){
+        if(pesoSDA <= 5){
+            costSDA = 11.25
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 16.20
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 23
+        } else if(pesoSDA > 31.5){
+            costSDA = 23+Math.floor(pesoSDA-31)*0.52
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*2.60
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "polonia"){
+        if(pesoSDA <= 5){
+            costSDA = 13.55
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 20.50
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 29.40
+        } else if(pesoSDA > 31.5){
+            costSDA = 29.40+Math.floor(pesoSDA-31)*0.7
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*1.10
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "portogallo"){
+        if(pesoSDA <= 5){
+            costSDA = 13.55
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 23.90
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 29.50
+        } else if(pesoSDA > 31.5){
+            costSDA = 29.50+Math.floor(pesoSDA-31)*0.62
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*6.05
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "repubblica_ceca"){
+        if(pesoSDA <= 5){
+            costSDA = 18.40
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 18.55
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 22.90
+        } else if(pesoSDA > 31.5){
+            costSDA = 22.90+Math.floor(pesoSDA-31)*0.55
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*2.83
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "romania"){
+        if(pesoSDA <= 5){
+            costSDA = 11.30
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 22.40
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 29.50
+        } else if(pesoSDA > 31.5){
+            costSDA = 29.50+Math.floor(pesoSDA-31)*0.64
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*2.98
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "serbia"){
+        if(pesoSDA <= 5){
+            costSDA = 13.85
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 19.25
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 27.35
+        } else if(pesoSDA > 31.5){
+            costSDA = 27.35+Math.floor(pesoSDA-31)*0.50
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*2.98
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "slovacchia"){
+        if(pesoSDA <= 5){
+            costSDA = 13.85
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 18.55
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 22.60
+        } else if(pesoSDA > 31.5){
+            costSDA = 22.60+Math.floor(pesoSDA-31)*0.51
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*2.98
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "slovenia"){
+        if(pesoSDA <= 5){
+            costSDA = 13.30
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 19
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 26
+        } else if(pesoSDA > 31.5){
+            costSDA = 26+Math.floor(pesoSDA-31)*0.55
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*2.61
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "spagna"){
+        if(pesoSDA <= 5){
+            costSDA = 11.25
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 18.65
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 24.50
+        } else if(pesoSDA > 31.5){
+            costSDA = 24.50+Math.floor(pesoSDA-31)*0.51
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*4.10
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "svizzera"){
+        if(pesoSDA <= 5){
+            costSDA = 14.95
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 26.5
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 58
+        } else if(pesoSDA > 31.5){
+            costSDA = 58+Math.floor(pesoSDA-31)*1.32
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*1.10
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "lietchtenstein"){
+        if(pesoSDA <= 5){
+            costSDA = 14.95
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 26.5
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 58
+        } else if(pesoSDA > 31.5){
+            costSDA = 58+Math.floor(pesoSDA-31)*1.32
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*1.10
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+    if(country == "ungheria"){
+        if(pesoSDA <= 5){
+            costSDA = 12.45
+        } else if(pesoSDA > 5 && pesoSDA <= 15){
+            costSDA = 19.25
+        } else if(pesoSDA > 15 && pesoSDA <= 31.5){
+            costSDA = 24.45
+        } else if(pesoSDA > 31.5){
+            costSDA = 24.45+Math.floor(pesoSDA-31)*0.51
+        }
+        if(packs > 1){
+            costSDA += (packs-1)*2.98
+        }
+        if(perimeter > 330){
+            costSDA += 000
+        }
+        if(perimeter > 450){
+            costSDA = 000+000+Math.floor(pesoSDA-31)*000
+        }
+    }
+}
 
-function fill_colli(){
-    let altezza = document.getElementById('altezza').value
-    let lunghezza = document.getElementById('lunghezza').value
-    let larghezza = document.getElementById('larghezza').value
-    let country = document.getElementById('inputDa').value
-    let peso = document.getElementById('peso').value
-    summary.innerHTML += "<p>Collo " + altezza + "x" + lunghezza + "x" + larghezza + ", peso: " + peso + "</p>"
-}
-// Foreign deliverie" ffffffffffffffffff"
-// Austria
-function calcolo_prezzi_andorra(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 66.85
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 71.85
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 80.40
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*2.34
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*7.35
-    }
-}        
-function calcolo_prezzi_austria(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 10.2
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 15.30
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 22.00
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.51
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*2.60
-    }
-}
-function calcolo_prezzi_azzorre(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 40.80
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 47.90
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 54.80
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*2.34
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*7.35
-    }
-}
-function calcolo_prezzi_belgio(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 10.2
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 16.50
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 24.00
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.56
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*3.05
-    }
-}
-function calcolo_prezzi_bosnia_e_erzegovina(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 13.85
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 19.25
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 27.35
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.55
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*2.98
-    }
-}
-function calcolo_prezzi_bulgaria(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 13.30
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 20.40
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 27
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.55
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*2.60
-    }
-}
-function calcolo_prezzi_ceuta(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 68.85
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 71.85
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 80.40
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*2.34
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*7.35
-    }
-}
-function calcolo_prezzi_corsica(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 49
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 53
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 60.06
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*1.12
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*4.10
-    }
-}
-function calcolo_prezzi_croazia(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 13.85
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 19.25
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 27.35
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.55
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*2.98
-    }
-}
-function calcolo_prezzi_francia(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 11.25
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 15
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 22.40
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.51
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*4.10
-    }
-}
-function calcolo_prezzi_germania(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 10.20
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 14.50
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 21.80
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.52
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*2.60
-    }
-}
-function calcolo_prezzi_gran_bretagna(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 11.25
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 18
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 25
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.70
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*3.33
-    }
-}
-function calcolo_prezzi_irlanda_del_nord(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 31.35
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 35.65
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 43.35
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.79
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*8.09
-    }
-}
-function calcolo_prezzi_irlanda(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 31.35
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 35.65
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 43.35
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.65
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*8.09
-    }
-}
-function calcolo_prezzi_isole_canarie(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 68.85
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 71.85
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 80.40
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*2.34
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*7.35
-    }
-}
-function calcolo_prezzi_isole_channel(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 11.25
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 18
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 25
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.70
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*3.33
-    }
-}
-function calcolo_prezzi_lussemburgo(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 10.2
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 16
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 24
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.55
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*2.98
-    }        
-}
-function calcolo_prezzi_madeira(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 40.80
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 47.90
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 54.80
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*2.34
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*7.35
-    }
-}
-function calcolo_prezzi_melilla(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 68.85
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 71.85
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 80.40
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*2.34
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*7.35
-    }
-}
-function calcolo_prezzi_montenegro(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 14.10
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 19.95
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 28.95
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.59
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*2.98
-    }        
-}
-function calcolo_prezzi_olanda(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 11.25
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 16.20
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 23
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.52
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*2.60
-    }        
-}
-function calcolo_prezzi_polonia(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 13.55
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 20.50
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 29.40
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.7
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*1.10
-    }        
-}
-function calcolo_prezzi_portogallo(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 13.55
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 23.90
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 29.50
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.62
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*6.05
-    }        
-}
-function calcolo_prezzi_repubblica_ceca(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 18.40
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 18.55
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 22.90
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.55
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*2.83
-    }        
-}
-function calcolo_prezzi_romania(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 11.30
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 22.40
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 29.50
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.64
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*2.98
-    }        
-}
-function calcolo_prezzi_serbia(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 13.85
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 19.25
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 27.35
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.50
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*2.98
-    }        
-}
-function calcolo_prezzi_slovacchia(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 13.85
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 18.55
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 22.60
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.51
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*2.98
-    }        
-}
-function calcolo_prezzi_slovenia(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 13.30
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 19
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 26
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.55
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*2.61
-    }        
-}
-function calcolo_prezzi_spagna(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 11.25
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 18.65
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 24.50
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.51
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*4.10
-    }        
-}
-function calcolo_prezzi_svizzera(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 14.95
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 26.5
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 58
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*1.32
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*1.10
-    }        
-}
-function calcolo_prezzi_lietchtenstein(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 14.95
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 26.5
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 58
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*1.32
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*1.10
-    }        
-}
-function calcolo_prezzi_ungheria(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 12.45
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 19.25
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 24.45
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.51
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*2.98
-    }
-}
-function calcolo_prezzi_paese(){
-    // SDA
-    if(pesoSDA <= 5){
-        costSDA = 12.45
-    } else if(pesoSDA > 5 && pesoSDA <= 15){
-        costSDA = 19.25
-    } else if(pesoSDA > 15 && pesoSDA <= 31.5){
-        costSDA = 24.45
-    } else if(pesoSDA > 31.5){
-        costSDA = Math.floor(pesoSDA)*0.51
-    }
-    if(numeroColli > 1){
-        costSDA += (numeroColli-1)*2.98
-    }
-}
-
-// manca corea del nord, cuba, iran, palestina, siria, somalia
-// attenzione repubblica ceca, repubblica centrafrican, inghilterra, st.vincent, nevis
-// aggiungi ceuta, cisgiordania, curacao, repubblica dominicana, franciaCap e franciaAltro
-// galles, gambia, germaniaCap e germaniaAltro, gibilterra, groenlandia, guadalupa, guam
-// guyanaFrancese, hongKong, irlandaDelNord, isoleCanarie, isoleCayman, italiaNoIsoleCalabria,
-// italiaIsoleCalabria, kiribati, kosovo, kosrae, kuwait, macau, madera, martinica, montserrat
-// mayotte, melilla, nuovaCaledonia, polinesiaFrancese, puertoRico, sriLanka, sudan, sudanDelSud
-
-// UPS AREE GEOGRAFICHE
-// [express, saver, standard]
-let ups_zone = {"afghanistan":[0,9,0], "albania":[6,6,0], "algeria":[11,11,0],
+    // Foreign deliveries UPS
+        // [express, saver, standard]
+let ups_area = {"afghanistan":[0,9,0], "albania":[6,6,0], "algeria":[11,11,0],
                 "andorra":[5,5,6], "angola":[0,11,0], "anguilla":[0,11,0],
                 "antiguaEBarbuda":[0,9,0], "arabiaSaudita":[10,10,0],
                 "argentina":[9,9,0], "armenia":[11,11,0], "australia":[9,9,0],
@@ -769,35 +941,722 @@ let ups_zone = {"afghanistan":[0,9,0], "albania":[6,6,0], "algeria":[11,11,0],
                 "ucraina":[6,6,0], "uganda":[0,11,0], "ungheria":[41,41,51], "uruguay":[0,10,0],
                 "uzbekistan":[0,11,0], "vanuatu":[11,11,0], "venezuela":[0,10,0], 
                 "vietnam":[11,11,0], "yemen":[0,11,0], "zambia":[0,11,0], "zimbabwe":[0,11,0]
-            }
+}
 
-function calcolo_costo_UPS_express(){
-    if(areaUPS == 1){
-        if(pesoVolumetricoNP <= 1){
+    // UPS express cost
+        // takes UPS Area number and volumetric weight
+        // returns the ups express cost
+function calcolo_costo_UPS_express(areaUPSexpress, pesovolumetricoNPUPS){
+    if(areaUPSexpress == 1){
+        if(pesovolumetricoNPUPS <= 1){
             costUPS_express = 12
-        } else if(pesoVolumetricoNP > 1 && pesoVolumetricoNP <= 3){
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 3){
             costUPS_express = 12.92
-        } else if(pesoVolumetricoNP > x && pesoVolumetricoNP <= x){
-            costUPS_express = x
-        } else if(pesoVolumetricoNP > x && pesoVolumetricoNP <= x){
-            costUPS_express = x
-        } else if(pesoVolumetricoNP > x && pesoVolumetricoNP <= x){
-            costUPS_express = x
-        } else if(pesoVolumetricoNP > 70){
-            costUPS_express = Math.floor(pesoVolumetricoNP)*0.80
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 5){
+            costUPS_express = 13.71
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 10){
+            costUPS_express = 17.98
+        } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 20){
+            costUPS_express = 24.32
+        } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 30){
+            costUPS_express = 30.70
+        } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 40){
+            costUPS_express = 37.03
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 60){
+            costUPS_express = 49.67
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 70){
+            costUPS_express = 56
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_express = Math.floor(pesovolumetricoNPUPS)*0.80
         }
     }
-    if(areaUPS == 2){
-        if(pesoVolumetricoNP <= x){
-            costUPS_express = x
-        } else if(pesoVolumetricoNP > x && pesoVolumetricoNP <= x){
-            costUPS_express = x
-        } else if(pesoVolumetricoNP > x && pesoVolumetricoNP <= x){
-            costUPS_express = x
-        } else if(pesoVolumetricoNP > x && pesoVolumetricoNP <= x){
-            costUPS_express = x
-        } else if(pesoVolumetricoNP > 70){
-            costUPS_express = Math.floor(pesoVolumetricoNP)*0.80
+    if(areaUPSexpress == 2){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_express = 14.97
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 1.5){
+            costUPS_express = 15.70
+        } else if(pesovolumetricoNPUPS > 1.5 && pesovolumetricoNPUPS <= 3){
+            costUPS_express = 22.08
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 5){
+            costUPS_express = 29.78
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_express = 35.71
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 9){
+            costUPS_express = 41.64
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 12){
+            costUPS_express = 48.35
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_express = 55
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_express = 61.47
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 22){
+            costUPS_express = 69.80
+        } else if(pesovolumetricoNPUPS > 22 && pesovolumetricoNPUPS <= 28){
+            costUPS_express = 81.92
+        } else if(pesovolumetricoNPUPS > 28 && pesovolumetricoNPUPS <= 35){
+            costUPS_express = 92.36
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_express = 100.67
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_express = 109.49
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_express = 118.19
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_express = 126.91
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_express = 135.37
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_express = 143.54
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_express = 151.71
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_express = Math.floor(pesovolumetricoNPUPS)*2.17
+        }
+    }
+    if(areaUPSexpress == 3){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_express = 14.96
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 1.5){
+            costUPS_express = 15.80
+        } else if(pesovolumetricoNPUPS > 1.5 && pesovolumetricoNPUPS <= 3){
+            costUPS_express = 22.50
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 5){
+            costUPS_express = 30.65
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_express = 36.35
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 9){
+            costUPS_express = 42.38
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 12){
+            costUPS_express = 48.60
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_express = 55.87
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_express = 63.16
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 22){
+            costUPS_express = 72.34
+        } else if(pesovolumetricoNPUPS > 22 && pesovolumetricoNPUPS <= 28){
+            costUPS_express = 84.36
+        } else if(pesovolumetricoNPUPS > 28 && pesovolumetricoNPUPS <= 35){
+            costUPS_express = 98.04
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_express = 107.71
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_express = 117.35
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_express = 126.74
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_express = 136.14
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_express = 145.55
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_express = 154.92
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_express = 164.30
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_express = Math.floor(pesovolumetricoNPUPS)*2.35
+        }
+    }
+    if(areaUPSexpress == 4){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_express = 14.96
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 1.5){
+            costUPS_express = 16.28
+        } else if(pesovolumetricoNPUPS > 1.5 && pesovolumetricoNPUPS <= 3){
+            costUPS_express = 23.16
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 5){
+            costUPS_express = 32.06
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_express = 38.21
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 9){
+            costUPS_express = 43.99
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 12){
+            costUPS_express = 51.13
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_express = 59.07
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_express = 67.01
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 22){
+            costUPS_express = 77.04
+        } else if(pesovolumetricoNPUPS > 22 && pesovolumetricoNPUPS <= 28){
+            costUPS_express = 89.36
+        } else if(pesovolumetricoNPUPS > 28 && pesovolumetricoNPUPS <= 35){
+            costUPS_express = 102.25
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_express = 111.01
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_express = 121.84
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_express = 132.69
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_express = 142.89
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_express = 152.72
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_express = 162.53
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_express = 172.56
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_express = Math.floor(pesovolumetricoNPUPS)*2.46
+        }
+    }
+    if(areaUPSexpress == 41){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_express = 19.25
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 1.5){
+            costUPS_express = 27.90
+        } else if(pesovolumetricoNPUPS > 1.5 && pesovolumetricoNPUPS <= 3){
+            costUPS_express = 44.42
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 5){
+            costUPS_express = 67.16
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_express = 80.64
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 9){
+            costUPS_express = 94.07
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 12){
+            costUPS_express = 114.01
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_express = 133.66
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_express = 152.54
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 22){
+            costUPS_express = 182.13
+        } else if(pesovolumetricoNPUPS > 22 && pesovolumetricoNPUPS <= 28){
+            costUPS_express = 217.78
+        } else if(pesovolumetricoNPUPS > 28 && pesovolumetricoNPUPS <= 35){
+            costUPS_express = 258.53
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_express = 286.65
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_express = 314.78
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_express = 342.88
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_express = 371.01
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_express = 399.13
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_express = 427.25
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_express = 455.37
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_express = Math.floor(pesovolumetricoNPUPS)*6.51
+        }
+    }
+    if(areaUPSexpress == 42){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_express = 19.27
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 1.5){
+            costUPS_express = 28.06
+        } else if(pesovolumetricoNPUPS > 1.5 && pesovolumetricoNPUPS <= 3){
+            costUPS_express = 44.69
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 5){
+            costUPS_express = 67.27
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_express = 80.88
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 9){
+            costUPS_express = 94.48
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 12){
+            costUPS_express = 115.04
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_express = 135.65
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_express = 155.50
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 22){
+            costUPS_express = 182.13
+        } else if(pesovolumetricoNPUPS > 22 && pesovolumetricoNPUPS <= 28){
+            costUPS_express = 220.42
+        } else if(pesovolumetricoNPUPS > 28 && pesovolumetricoNPUPS <= 35){
+            costUPS_express = 262.81
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_express = 291.38
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_express = 319.96
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_express = 348.53
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_express = 377.11
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_express = 405.41
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_express = 433.63
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_express = 461.84
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_express = Math.floor(pesovolumetricoNPUPS)*6.60   
+        }
+    }
+    if(areaUPSexpress == 5){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_express = 24.97
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 1.5){
+            costUPS_express = 24.97
+        } else if(pesovolumetricoNPUPS > 1.5 && pesovolumetricoNPUPS <= 3){
+            costUPS_express = 27.04
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 5){
+            costUPS_express = 36.12
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_express = 42.74
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 9){
+            costUPS_express = 49.27
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 12){
+            costUPS_express = 58.41
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_express = 67.07
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_express = 75.66
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 22){
+            costUPS_express = 86.68
+        } else if(pesovolumetricoNPUPS > 22 && pesovolumetricoNPUPS <= 28){
+            costUPS_express = 220.42
+        } else if(pesovolumetricoNPUPS > 28 && pesovolumetricoNPUPS <= 30){
+            costUPS_express = 101.17
+        } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 35){
+            costUPS_express = 115.87
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_express = 125.70
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_express = 135.54
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_express = 145.43
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_express = 155.27
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_express = 165.11
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_express = 174.93
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_express = 184.79
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_express = Math.floor(pesovolumetricoNPUPS)*2.64
+        }
+    }    
+    if(areaUPSexpress == 6){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_express = 41.30
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 1.5){
+            costUPS_express = 50.21
+        } else if(pesovolumetricoNPUPS > 1.5 && pesovolumetricoNPUPS <= 3){
+            costUPS_express = 63.50
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 5){
+            costUPS_express = 81.38
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_express = 99.17
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 9){
+            costUPS_express = 116.96
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 12){
+            costUPS_express = 141.77
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_express = 165.62
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_express = 189.48
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 22){
+            costUPS_express = 222.46
+        } else if(pesovolumetricoNPUPS > 22 && pesovolumetricoNPUPS <= 28){
+            costUPS_express = 270.71
+        } else if(pesovolumetricoNPUPS > 28 && pesovolumetricoNPUPS <= 30){
+            costUPS_express = 280.86
+        } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 35){
+            costUPS_express = 321.09
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_express = 355.38
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_express = 389.59
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_express = 423.85
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_express = 458.13
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_express = 492.38
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_express = 526.66
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_express = 560.91
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_express = Math.floor(pesovolumetricoNPUPS)*8.01
+        }
+    }   
+    if(areaUPSexpress == 8){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_express = 25
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 1.5){
+            costUPS_express = 25
+        } else if(pesovolumetricoNPUPS > 1.5 && pesovolumetricoNPUPS <= 3){
+            costUPS_express = 31.66
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 5){
+            costUPS_express = 42.15
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_express = 51.71
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 9){
+            costUPS_express = 61.24
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 12){
+            costUPS_express = 75.74
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_express = 90.41
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_express = 105.01
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 22){
+            costUPS_express = 124.93
+        } else if(pesovolumetricoNPUPS > 22 && pesovolumetricoNPUPS <= 28){
+            costUPS_express = 153.85
+        } else if(pesovolumetricoNPUPS > 28 && pesovolumetricoNPUPS <= 30){
+            costUPS_express = 163.47
+        } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 35){
+            costUPS_express = 184.75
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_express = 206.02
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_express = 227.30
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_express = 248.58
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_express = 269.82
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_express = 291.10
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_express = 312.39
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_express = 333.65
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_express = Math.floor(pesovolumetricoNPUPS)*4.76
+        }
+    }        
+    if(areaUPSexpress == 9){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_express = 31.38
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 1.5){
+            costUPS_express = 40.72
+        } else if(pesovolumetricoNPUPS > 1.5 && pesovolumetricoNPUPS <= 3){
+            costUPS_express = 54.75
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 5){
+            costUPS_express = 73.47
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_express = 88.10
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 9){
+            costUPS_express = 105.49
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 12){
+            costUPS_express = 127.01
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_express = 146.13
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_express = 165.33
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 22){
+            costUPS_express = 191.36
+        } else if(pesovolumetricoNPUPS > 22 && pesovolumetricoNPUPS <= 28){
+            costUPS_express = 228.50
+        } else if(pesovolumetricoNPUPS > 28 && pesovolumetricoNPUPS <= 30){
+            costUPS_express = 240.89
+        } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 35){
+            costUPS_express = 270.67
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_express = 297.71
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_express = 328.77
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_express = 364.29
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_express = 394.51
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_express = 423.75
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_express = 452.92
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_express = 482.13
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_express = Math.floor(pesovolumetricoNPUPS)*6.89
+        }
+    }           
+    if(areaUPSexpress == 10){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_express = 34.56
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 1.5){
+            costUPS_express = 44.17
+        } else if(pesovolumetricoNPUPS > 1.5 && pesovolumetricoNPUPS <= 3){
+            costUPS_express = 58.61
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 5){
+            costUPS_express = 77.95
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_express = 92.62
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 9){
+            costUPS_express = 111.06
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 12){
+            costUPS_express = 133
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_express = 152.05
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_express = 171.15
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 22){
+            costUPS_express = 197.69
+        } else if(pesovolumetricoNPUPS > 22 && pesovolumetricoNPUPS <= 28){
+            costUPS_express = 236.58
+        } else if(pesovolumetricoNPUPS > 28 && pesovolumetricoNPUPS <= 30){
+            costUPS_express = 249.55
+        } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 35){
+            costUPS_express = 279.39
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_express = 309.17
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_express = 339.01
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_express = 376.61
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_express = 406.59
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_express = 436.54
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_express = 466.50
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_express = 496.49
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_express = Math.floor(pesovolumetricoNPUPS)*7.09
+        }
+    }               
+    if(areaUPSexpress == 11){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_express = 41.43
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 1.5){
+            costUPS_express = 51.30
+        } else if(pesovolumetricoNPUPS > 1.5 && pesovolumetricoNPUPS <= 3){
+            costUPS_express = 66.11
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 5){
+            costUPS_express = 85.90
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_express = 105.66
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 9){
+            costUPS_express = 125.46
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 12){
+            costUPS_express = 150.95
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_express = 174.33
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_express = 197.70
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 22){
+            costUPS_express = 229.45
+        } else if(pesovolumetricoNPUPS > 22 && pesovolumetricoNPUPS <= 28){
+            costUPS_express = 274.77
+        } else if(pesovolumetricoNPUPS > 28 && pesovolumetricoNPUPS <= 30){
+            costUPS_express = 289.87
+        } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 35){
+            costUPS_express = 321.28
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_express = 352.66
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_express = 384.02
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_express = 415.41
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_express = 446.80
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_express = 478.19
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_express = 509.57
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_express = 540.94
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_express = Math.floor(pesovolumetricoNPUPS)*7.73
+        }
+    }                    
+    if(areaUPSexpress == 12){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_express = 24.94
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 1.5){
+            costUPS_express = 26.78
+        } else if(pesovolumetricoNPUPS > 1.5 && pesovolumetricoNPUPS <= 3){
+            costUPS_express = 36.23
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 5){
+            costUPS_express = 47.10
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_express = 56.37
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 9){
+            costUPS_express = 65.68
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 12){
+            costUPS_express = 76.87
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_express = 86.66
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_express = 96.45
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 22){
+            costUPS_express = 110.06
+        } else if(pesovolumetricoNPUPS > 22 && pesovolumetricoNPUPS <= 28){
+            costUPS_express = 129.81
+        } else if(pesovolumetricoNPUPS > 28 && pesovolumetricoNPUPS <= 30){
+            costUPS_express = 136.43
+        } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 35){
+            costUPS_express = 148.97
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_express = 161.48
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_express = 174
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_express = 186.53
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_express = 199.03
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_express = 211.54
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_express = 224.07
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_express = 236.58
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_express = Math.floor(pesovolumetricoNPUPS)*3.38
         }
     }
 }
+
+    // UPS express saver cost
+        // takes UPS Area number and volumetric weight
+        // returns the ups express saver cost
+function calcolo_costo_UPS_express_saver(areaUPSsaver, pesovolumetricoNPUPS){
+    if(areaUPSsaver == 1){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_saver = 9.85
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 3){
+            costUPS_saver = 10.80
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 5){
+            costUPS_saver = 11.71
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_saver = 12.65
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 9){
+            costUPS_saver = 13.68
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 10){
+            costUPS_saver = 14.15
+        } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 20){
+            costUPS_saver = 19.04
+        } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 30){
+            costUPS_saver = 24.10
+        } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 40){
+            costUPS_saver = 29.03
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 50){
+            costUPS_saver = 33.96
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 60){
+            costUPS_saver = 38.88
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 70){
+            costUPS_saver = 43.86
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_saver = Math.floor(pesovolumetricoNPUPS)*0.63
+        }
+    }
+    if(areaUPSsaver == 2){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_saver = 11.98
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 2){
+            costUPS_saver = 14.98
+        } else if(pesovolumetricoNPUPS > 2 && pesovolumetricoNPUPS <= 3){
+            costUPS_saver = 18.33
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 4){
+            costUPS_saver = 21.64
+        } else if(pesovolumetricoNPUPS > 4 && pesovolumetricoNPUPS <= 5){
+            costUPS_saver = 24.95
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_saver = 29.82
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 8){
+            costUPS_saver = 32.26
+        } else if(pesovolumetricoNPUPS > 8 && pesovolumetricoNPUPS <= 9){
+            costUPS_saver = 34.69
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 10){
+            costUPS_saver = 37.13
+        } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 12){
+            costUPS_saver = 40.18
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_saver = 45.70
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_saver = 51.24
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 20){
+            costUPS_saver = 54.97
+        } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 24){
+            costUPS_saver = 61.79
+        } else if(pesovolumetricoNPUPS > 24 && pesovolumetricoNPUPS <= 30){
+            costUPS_saver = 71.70
+        } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 35){
+            costUPS_saver = 78.48
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_saver = 85.28
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_saver = 92.07
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_saver = 98.89
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_saver = 105.69
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_saver = 112.49
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_saver = 119.27
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_saver = 126.10
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_saver = Math.floor(pesovolumetricoNPUPS)*1.80
+        }
+    }                                                
+    if(areaUPSsaver == 3){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_saver = 11.98
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 2){
+            costUPS_saver = 14.98
+        } else if(pesovolumetricoNPUPS > 2 && pesovolumetricoNPUPS <= 3){
+            costUPS_saver = 18.33
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 4){
+            costUPS_saver = 21.64
+        } else if(pesovolumetricoNPUPS > 4 && pesovolumetricoNPUPS <= 5){
+            costUPS_saver = 24.95
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_saver = 29.82
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 8){
+            costUPS_saver = 32.26
+        } else if(pesovolumetricoNPUPS > 8 && pesovolumetricoNPUPS <= 9){
+            costUPS_saver = 34.69
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 10){
+            costUPS_saver = 37.13
+        } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 12){
+            costUPS_saver = 40.18
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_saver = 45.70
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_saver = 51.24
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 20){
+            costUPS_saver = 54.97
+        } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 24){
+            costUPS_saver = 61.79
+        } else if(pesovolumetricoNPUPS > 24 && pesovolumetricoNPUPS <= 30){
+            costUPS_saver = 71.70
+        } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 35){
+            costUPS_saver = 78.48
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_saver = 85.28
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_saver = 92.07
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_saver = 98.89
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_saver = 105.69
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_saver = 112.49
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_saver = 119.27
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_saver = 126.10
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_saver = Math.floor(pesovolumetricoNPUPS)*1.80
+        }
+    }
+}
+
+
+
+// manca corea del nord, cuba, iran, palestina, siria, somalia
+// attenzione repubblica ceca, repubblica centrafrican, inghilterra, st.vincent, nevis
+// aggiungi ceuta, cisgiordania, curacao, repubblica dominicana, franciaCap e franciaAltro
+// galles, gambia, germaniaCap e germaniaAltro, gibilterra, groenlandia, guadalupa, guam
+// guyanaFrancese, hongKong, irlandaDelNord, isoleCanarie, isoleCayman, italiaNoIsoleCalabria,
+// italiaIsoleCalabria, kiribati, kosovo, kosrae, kuwait, macau, madera, martinica, montserrat
+// mayotte, melilla, nuovaCaledonia, polinesiaFrancese, puertoRico, sriLanka, sudan, sudanDelSud
+
+
+/// SDA
+// In italia é a*l*p/3333, 
+//      Calabria, Sardegna, Sicilia supplemento ---
+// All'estero
+//      Pacco standard: 31,5kg, lunghezza+perimetro < 330cm, lato piú lungo < 200cm
+//      Se si supera peso o dimensione, +8e per ogni collo eccedente
+//      Eccezioni: Repubblica di Irlanda, Irlanda del Nord, Danimarca, Estonia, Lettonia, Lituania, Svezia, Finlandia, Novergia, Corsica, Azzorre, Madeira, Andorra, Isole Canarie, Ceuta, Melilla
+//      Ogni collo eccedente aumento tariffa pallet (specifica)
+//      Se si supera, a prescindere, 70kg o lunghezza+perimetro > 450, prezzo a pallet
+//      Oltre i 31,5kg, a*l*p/5000
