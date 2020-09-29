@@ -23,6 +23,7 @@ let costSDAPersonal = 0
 let costTNTPersonal = 0
 let costUPS_express = 0
 let costUPS_saver = 0
+let costUPS_standard = 0
 let packs = 0
 
 
@@ -78,14 +79,48 @@ function submitted(){
     priceTable.innerHTML += "<br>Paese di destinazione: " + country
     console.log("Numero di colli: " + packs)
     priceTable.innerHTML += "<br>Numero di colli: " + packs
-    calcolo_prezzi_italia(pesoSDA, pesoTNT, pesoNPUPS)
-    calcolo_prezzi_SDA_estero(country, pesoreale, packs, altezza+2*lunghezza+2*larghezza)
-    priceTable.innerHTML += "<br><br>Costo SDA: " + costSDA.toFixed(2)
-    priceTable.innerHTML += "<br>Costo TNT: " + costTNT.toFixed(2)
-    priceTable.innerHTML += "<br>Costo NP: " + costNP.toFixed(2)
-    priceTable.innerHTML += "<br>Costo SDA Personal: " + costSDAPersonal.toFixed(2)
-    priceTable.innerHTML += "<br>Costo TNT Personal: " + costTNTPersonal.toFixed(2)
-    priceTable.innerHTML += "<br>Costo GLS Personal: " + costGLSPersonal.toFixed(2)
+    if(country == "italia"){
+        calcolo_prezzi_italia(pesoSDA, pesoTNT, pesoNPUPS)
+        priceTable.innerHTML += "<br>Costi Italia"
+        priceTable.innerHTML += "<br><br>Costo SDA: " + costSDA.toFixed(2)
+        priceTable.innerHTML += "<br>Costo TNT: " + costTNT.toFixed(2)
+        priceTable.innerHTML += "<br>Costo NP: " + costNP.toFixed(2)
+        priceTable.innerHTML += "<br>Costo SDA Personal: " + costSDAPersonal.toFixed(2)
+        priceTable.innerHTML += "<br>Costo TNT Personal: " + costTNTPersonal.toFixed(2)
+        priceTable.innerHTML += "<br>Costo GLS Personal: " + costGLSPersonal.toFixed(2)
+    }
+    if(country != "italia"){
+        priceTable.innerHTML += "<br><br>Costi Estero"
+        // SDA
+        calcolo_prezzi_SDA_estero(country, pesoreale, packs, altezza+2*lunghezza+2*larghezza)
+        if(costSDA == 0){
+            priceTable.innerHTML += "<br><br>SDA non ha tariffa per questo paese"
+        } else {
+
+        priceTable.innerHTML += "<br><br>Costo SDA: " + costSDA.toFixed(2)
+        }
+        // UPS Express
+        if(ups_area[country][0] == 0){
+            priceTable.innerHTML += "<br>UPS non ha tariffa express per questo paese"
+        } else {
+            calcolo_costo_UPS_express(ups_area[country][0], pesoNPUPS)
+            priceTable.innerHTML += "<br>Costo UPS Express: " + costUPS_express.toFixed(2)
+        }
+        // UPS Saver
+        if(ups_area[country][1] == 0){
+            priceTable.innerHTML += "<br>UPS non ha tariffa saver per questo paese"
+        } else {
+            calcolo_costo_UPS_express_saver(ups_area[country][1], pesoNPUPS)
+            priceTable.innerHTML += "<br>Costo UPS Saver: " + costUPS_saver.toFixed(2)
+        }
+        // UPS Standard
+        if(ups_area[country][2] == 0){
+            priceTable.innerHTML += "<br>UPS non ha tariffa standard per questo paese"
+        } else {
+            calcolo_costo_UPS_standard(ups_area[country][2], pesoNPUPS)
+            priceTable.innerHTML += "<br>Costo UPS Standard: " + costUPS_standard.toFixed(2)
+        }
+    }
     //calcolo_costo_UPS_express(ups_area[country][0], pesoNPUPS)
     //calcolo_costo_UPS_express_saver(ups_area[country][1], pesoNPUPS)
     //console.log("UPS Express: " + costUPS_express + " UPS Saver: " + costUPS_saver)
@@ -121,6 +156,8 @@ function calcolo_prezzi_italia(pesoSDA, pesoTNT, pesoNPUPS){
         costSDA = 40
     } else if(pesoSDA > 70 && pesoSDA <= 100){
         costSDA = 50
+    } else if(pesoSDA > 100){
+        costSDA = 0
     }
     console.log("Costo SDA: " + costSDA)
     // TNT
@@ -148,6 +185,8 @@ function calcolo_prezzi_italia(pesoSDA, pesoTNT, pesoNPUPS){
         costTNT = 70
     } else if(pesoTNT > 125 && pesoTNT <= 150){
         costTNT = 80
+    } else if(pesoTNT > 150){
+        costTNT = 0
     }
     console.log("Costo TNT: " + costTNT)
     // NUOVA POSTA
@@ -163,6 +202,8 @@ function calcolo_prezzi_italia(pesoSDA, pesoTNT, pesoNPUPS){
         costNP = 43
     } else if(pesoNPUPS > 75 && pesoNPUPS <= 100){
         costNP = 55
+    } else if(pesoNPUPS > 100){
+        costNP = 0
     }
     console.log("Costo NP: " + costNP)
     // SDA Personal
@@ -182,6 +223,8 @@ function calcolo_prezzi_italia(pesoSDA, pesoTNT, pesoNPUPS){
         costSDAPersonal = 23.40
     } else if(pesoSDA > 70 && pesoSDA <= 100){
         costSDAPersonal = 31.20
+    } else if(pesoSDA > 100){
+        costSDAPersonal = 0
     }
     console.log("Costo SDA Personal: " + costSDAPersonal)
     // TNT Personal
@@ -209,6 +252,8 @@ function calcolo_prezzi_italia(pesoSDA, pesoTNT, pesoNPUPS){
         costTNTPersonal = 53.45
     } else if(pesoTNT > 125 && pesoTNT <= 150){
         costTNTPersonal = 56
+    } else if(pesoTNT > 150){
+        costTNTPersonal = 0
     }
     console.log("Costo TNT Personal: " + costTNTPersonal)
     if(pesoSDA <= 3){
@@ -228,7 +273,7 @@ function calcolo_prezzi_italia(pesoSDA, pesoTNT, pesoNPUPS){
     } else if(pesoSDA > 75 && pesoSDA <= 100){
         costGLSPersonal = 27.70
     } else if(pesoSDA > 100){
-        costGLSPersonal = Math.floor(pesoSDA/10)*2.52
+        costGLSPersonal = 27.70+Math.floor((pesoSDA-99)/10)*2.52
     }
     console.log("Costo GLS Personal: " + costGLSPersonal)
 
