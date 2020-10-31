@@ -1633,59 +1633,792 @@ function calcolo_costo_UPS_express_saver(areaUPSsaver, pesovolumetricoNPUPS){
     }                                                
     if(areaUPSsaver == 3){
         if(pesovolumetricoNPUPS <= 1){
-            costUPS_saver = 11.98
+            costUPS_saver = 11.96
         } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 2){
-            costUPS_saver = 14.98
+            costUPS_saver = 15.05
         } else if(pesovolumetricoNPUPS > 2 && pesovolumetricoNPUPS <= 3){
-            costUPS_saver = 18.33
+            costUPS_saver = 18.69
         } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 4){
-            costUPS_saver = 21.64
+            costUPS_saver = 22.07
         } else if(pesovolumetricoNPUPS > 4 && pesovolumetricoNPUPS <= 5){
-            costUPS_saver = 24.95
+            costUPS_saver = 25.48
         } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
-            costUPS_saver = 29.82
+            costUPS_saver = 30.50
         } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 8){
-            costUPS_saver = 32.26
+            costUPS_saver = 33
         } else if(pesovolumetricoNPUPS > 8 && pesovolumetricoNPUPS <= 9){
-            costUPS_saver = 34.69
+            costUPS_saver = 35.46
         } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 10){
-            costUPS_saver = 37.13
+            costUPS_saver = 37.81
         } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 12){
-            costUPS_saver = 40.18
+            costUPS_saver = 40.39
         } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
-            costUPS_saver = 45.70
+            costUPS_saver = 46.43
         } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
-            costUPS_saver = 51.24
+            costUPS_saver = 52.47
         } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 20){
-            costUPS_saver = 54.97
+            costUPS_saver = 56.53
         } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 24){
-            costUPS_saver = 61.79
+            costUPS_saver = 63.42
         } else if(pesovolumetricoNPUPS > 24 && pesovolumetricoNPUPS <= 30){
-            costUPS_saver = 71.70
+            costUPS_saver = 73.39
         } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 35){
-            costUPS_saver = 78.48
+            costUPS_saver = 81.46
         } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
-            costUPS_saver = 85.28
+            costUPS_saver = 89.51
         } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
-            costUPS_saver = 92.07
+            costUPS_saver = 97.52
         } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
-            costUPS_saver = 98.89
+            costUPS_saver = 105.58
         } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
-            costUPS_saver = 105.69
+            costUPS_saver = 113.62
         } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
-            costUPS_saver = 112.49
+            costUPS_saver = 121.65
         } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
-            costUPS_saver = 119.27
+            costUPS_saver = 129.70
         } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
-            costUPS_saver = 126.10
+            costUPS_saver = 137.75
         } else if(pesovolumetricoNPUPS > 70){
-            costUPS_saver = Math.floor(pesovolumetricoNPUPS)*1.80
+            costUPS_saver = Math.floor(pesovolumetricoNPUPS)*1.97
+        }
+    }
+    if(areaUPSsaver == 4){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_saver = 11.95
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 2){
+            costUPS_saver = 15.43
+        } else if(pesovolumetricoNPUPS > 2 && pesovolumetricoNPUPS <= 3){
+            costUPS_saver = 19.25
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 4){
+            costUPS_saver = 23.12
+        } else if(pesovolumetricoNPUPS > 4 && pesovolumetricoNPUPS <= 5){
+            costUPS_saver = 26.64
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_saver = 31.81
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 8){
+            costUPS_saver = 34.44
+        } else if(pesovolumetricoNPUPS > 8 && pesovolumetricoNPUPS <= 9){
+            costUPS_saver = 37.03
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 10){
+            costUPS_saver = 39.64
+        } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 12){
+            costUPS_saver = 42.90
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_saver = 49.46
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_saver = 56
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 20){
+            costUPS_saver = 60.38
+        } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 24){
+            costUPS_saver = 67.46
+        } else if(pesovolumetricoNPUPS > 24 && pesovolumetricoNPUPS <= 30){
+            costUPS_saver = 77.65
+        } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 35){
+            costUPS_saver = 84.96
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_saver = 92.25
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_saver = 101.25
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_saver = 110.27
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_saver = 119.24
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_saver = 128.24
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_saver = 137.26
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_saver = 146.25
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_saver = Math.floor(pesovolumetricoNPUPS)*2.09
+        }
+    }
+    if(areaUPSsaver == 41){  
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_saver = 18.62
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 2){
+            costUPS_saver = 28.16
+        } else if(pesovolumetricoNPUPS > 2 && pesovolumetricoNPUPS <= 3){
+            costUPS_saver = 36.93
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 4){
+            costUPS_saver = 46.38
+        } else if(pesovolumetricoNPUPS > 4 && pesovolumetricoNPUPS <= 5){
+            costUPS_saver = 55.84
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_saver = 67.02
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 8){
+            costUPS_saver = 72.59
+        } else if(pesovolumetricoNPUPS > 8 && pesovolumetricoNPUPS <= 9){
+            costUPS_saver = 78.17
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 10){
+            costUPS_saver = 83.77
+        } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 12){
+            costUPS_saver = 95.39
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_saver = 111.07
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_saver = 126.76
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 20){
+            costUPS_saver = 137.22
+        } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 24){
+            costUPS_saver = 159.66
+        } else if(pesovolumetricoNPUPS > 24 && pesovolumetricoNPUPS <= 30){
+            costUPS_saver = 192.31
+        } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 35){
+            costUPS_saver = 215.05
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_saver = 238.45
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_saver = 261.83
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_saver = 285.24
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_saver = 308.65
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_saver = 332.03
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_saver = 355.46
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_saver = 378.84
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_saver = Math.floor(pesovolumetricoNPUPS)*5.41
+        }
+    }
+    if(areaUPSsaver == 42){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_saver = 16.01
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 2){
+            costUPS_saver = 28.46
+        } else if(pesovolumetricoNPUPS > 2 && pesovolumetricoNPUPS <= 3){
+            costUPS_saver = 37.36
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 4){
+            costUPS_saver = 46.68
+        } else if(pesovolumetricoNPUPS > 4 && pesovolumetricoNPUPS <= 5){
+            costUPS_saver = 56
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_saver = 67.83
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 8){
+            costUPS_saver = 73.32
+        } else if(pesovolumetricoNPUPS > 8 && pesovolumetricoNPUPS <= 9){
+            costUPS_saver = 79.62
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 10){
+            costUPS_saver = 85.54
+        } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 12){
+            costUPS_saver = 96.59
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_saver = 112.87
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_saver = 129.22
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 20){
+            costUPS_saver = 140.05
+        } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 24){
+            costUPS_saver = 161.96
+        } else if(pesovolumetricoNPUPS > 24 && pesovolumetricoNPUPS <= 30){
+            costUPS_saver = 193.79
+        } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 35){
+            costUPS_saver = 219.63
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_saver = 243.09
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_saver = 266.54
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_saver = 290.01
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_saver = 313.44
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_saver = 336.90
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_saver = 360.34
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_saver = 383.80
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_saver = Math.floor(pesovolumetricoNPUPS)*5.48
+        }
+    }
+    if(areaUPSsaver == 5canarie){//fix
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_saver = 11.99
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 2){
+            costUPS_saver = 16.22
+        } else if(pesovolumetricoNPUPS > 2 && pesovolumetricoNPUPS <= 3){
+            costUPS_saver = 19.41
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 4){
+            costUPS_saver = 22.66
+        } else if(pesovolumetricoNPUPS > 4 && pesovolumetricoNPUPS <= 5){
+            costUPS_saver = 25.91
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_saver = 30.63
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 8){
+            costUPS_saver = 33.02
+        } else if(pesovolumetricoNPUPS > 8 && pesovolumetricoNPUPS <= 9){
+            costUPS_saver = 35.41
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 10){
+            costUPS_saver = 37.80
+        } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 12){
+            costUPS_saver = 41.88
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_saver = 48.09
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_saver = 54.26
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 20){
+            costUPS_saver = 58.39
+        } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 24){
+            costUPS_saver = 65.65
+        } else if(pesovolumetricoNPUPS > 24 && pesovolumetricoNPUPS <= 30){
+            costUPS_saver = 76.04
+        } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 35){
+            costUPS_saver = 83.10
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_saver = 90.15
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_saver = 97.22
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_saver = 104.28
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_saver = 111.35
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_saver = 118.40
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_saver = 125.46
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_saver = 132.53
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_saver = Math.floor(pesovolumetricoNPUPS)*1.89
+        }
+    }
+    if(areaUPSsaver == 5){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_saver = 19.94
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 2){
+            costUPS_saver = 20.28
+        } else if(pesovolumetricoNPUPS > 2 && pesovolumetricoNPUPS <= 3){
+            costUPS_saver = 24.26
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 4){
+            costUPS_saver = 28.32
+        } else if(pesovolumetricoNPUPS > 4 && pesovolumetricoNPUPS <= 5){
+            costUPS_saver = 32.39
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_saver = 38.29
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 8){
+            costUPS_saver = 41.28
+        } else if(pesovolumetricoNPUPS > 8 && pesovolumetricoNPUPS <= 9){
+            costUPS_saver = 44.26
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 10){
+            costUPS_saver = 47.25
+        } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 12){
+            costUPS_saver = 52.35
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_saver = 60.11
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_saver = 67.83
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 20){
+            costUPS_saver = 73
+        } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 24){
+            costUPS_saver = 82.06
+        } else if(pesovolumetricoNPUPS > 24 && pesovolumetricoNPUPS <= 30){
+            costUPS_saver = 95.05
+        } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 35){
+            costUPS_saver = 103.87
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_saver = 112.69
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_saver = 121.52
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_saver = 130.35
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_saver = 139.19
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_saver = 148
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_saver = 156.82
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_saver = 165.66
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_saver = Math.floor(pesovolumetricoNPUPS)*2.37
+        }
+    }
+    if(areaUPSsaver == 6){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_saver = 41.22
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 2){
+            costUPS_saver = 49.20
+        } else if(pesovolumetricoNPUPS > 2 && pesovolumetricoNPUPS <= 3){
+            costUPS_saver = 57.79
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 4){
+            costUPS_saver = 65.90
+        } else if(pesovolumetricoNPUPS > 4 && pesovolumetricoNPUPS <= 5){
+            costUPS_saver = 73.95
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_saver = 90.13
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 8){
+            costUPS_saver = 98.22
+        } else if(pesovolumetricoNPUPS > 8 && pesovolumetricoNPUPS <= 9){
+            costUPS_saver = 106.29
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 10){
+            costUPS_saver = 114.39
+        } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 12){
+            costUPS_saver = 128.74
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_saver = 150.48
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_saver = 172.24
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 20){
+            costUPS_saver = 186.76
+        } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 24){
+            costUPS_saver = 216.96
+        } else if(pesovolumetricoNPUPS > 24 && pesovolumetricoNPUPS <= 30){
+            costUPS_saver = 260.87
+        } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 35){
+            costUPS_saver = 291.98
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_saver = 323.08
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_saver = 354.18
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_saver = 385.27
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_saver = 416.36
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_saver = 447.47
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_saver = 478.57
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_saver = 509.66
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_saver = Math.floor(pesovolumetricoNPUPS)*7.28
+        }
+    }
+    if(areaUPSsaver == 8){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_saver = 19.94
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 2){
+            costUPS_saver = 23.84
+        } else if(pesovolumetricoNPUPS > 2 && pesovolumetricoNPUPS <= 3){
+            costUPS_saver = 28.77
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 4){
+            costUPS_saver = 33.57
+        } else if(pesovolumetricoNPUPS > 4 && pesovolumetricoNPUPS <= 5){
+            costUPS_saver = 38.39
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_saver = 47.00
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 8){
+            costUPS_saver = 51.29
+        } else if(pesovolumetricoNPUPS > 8 && pesovolumetricoNPUPS <= 9){
+            costUPS_saver = 55.56
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 10){
+            costUPS_saver = 59.90
+        } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 12){
+            costUPS_saver = 68.89
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_saver = 82.18
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_saver = 95.47
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 20){
+            costUPS_saver = 104.31
+        } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 24){
+            costUPS_saver = 122.24
+        } else if(pesovolumetricoNPUPS > 24 && pesovolumetricoNPUPS <= 30){
+            costUPS_saver = 148.38
+        } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 35){
+            costUPS_saver = 168.01
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_saver = 187.33
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_saver = 206.63
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_saver = 225.93
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_saver = 245.21
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_saver = 264.55
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_saver = 283.84
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_saver = 303.16
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_saver = Math.floor(pesovolumetricoNPUPS)*4.33
+        }
+    }
+    if(areaUPSsaver == 9){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_saver = 32.42
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 2){
+            costUPS_saver = 40.92
+        } else if(pesovolumetricoNPUPS > 2 && pesovolumetricoNPUPS <= 3){
+            costUPS_saver = 50.02
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 4){
+            costUPS_saver = 58.64
+        } else if(pesovolumetricoNPUPS > 4 && pesovolumetricoNPUPS <= 5){
+            costUPS_saver = 66.63
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_saver = 79.85
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 8){
+            costUPS_saver = 87.74
+        } else if(pesovolumetricoNPUPS > 8 && pesovolumetricoNPUPS <= 9){
+            costUPS_saver = 95.60
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 10){
+            costUPS_saver = 103.48
+        } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 12){
+            costUPS_saver = 115.21
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_saver = 132.74
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_saver = 150.23
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 20){
+            costUPS_saver = 161.91
+        } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 24){
+            costUPS_saver = 185.28
+        } else if(pesovolumetricoNPUPS > 24 && pesovolumetricoNPUPS <= 30){
+            costUPS_saver = 219.15
+        } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 35){
+            costUPS_saver = 247.71
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_saver = 274.57
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_saver = 301.47
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_saver = 328.30
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_saver = 355.19
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_saver = 382.08
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_saver = 408.94
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_saver = 435.79
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_saver = Math.floor(pesovolumetricoNPUPS)*6.22
+        }
+    }
+    if(areaUPSsaver == 10){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_saver = 35.39
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 2){
+            costUPS_saver = 44.09
+        } else if(pesovolumetricoNPUPS > 2 && pesovolumetricoNPUPS <= 3){
+            costUPS_saver = 53.29
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 4){
+            costUPS_saver = 62.09
+        } else if(pesovolumetricoNPUPS > 4 && pesovolumetricoNPUPS <= 5){
+            costUPS_saver = 70.90
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_saver = 84.15
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 8){
+            costUPS_saver = 92.50
+        } else if(pesovolumetricoNPUPS > 8 && pesovolumetricoNPUPS <= 9){
+            costUPS_saver = 100.88
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 10){
+            costUPS_saver = 109.22
+        } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 12){
+            costUPS_saver = 120.88
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_saver = 138.29
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_saver = 155.64
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 20){
+            costUPS_saver = 167.27
+        } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 24){
+            costUPS_saver = 191.41
+        } else if(pesovolumetricoNPUPS > 24 && pesovolumetricoNPUPS <= 30){
+            costUPS_saver = 226.28
+        } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 35){
+            costUPS_saver = 253.57
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_saver = 280.87
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_saver = 308.19
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_saver = 342.17
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_saver = 369.45
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_saver = 396.75
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_saver = 424.08
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_saver = 451.38
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_saver = Math.floor(pesovolumetricoNPUPS)*6.45
+        }
+    }
+    if(areaUPSsaver == 11){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_saver = 41.77
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 2){
+            costUPS_saver = 50.66
+        } else if(pesovolumetricoNPUPS > 2 && pesovolumetricoNPUPS <= 3){
+            costUPS_saver = 60.13
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 4){
+            costUPS_saver = 69.08
+        } else if(pesovolumetricoNPUPS > 4 && pesovolumetricoNPUPS <= 5){
+            costUPS_saver = 78.06
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_saver = 96.01
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 8){
+            costUPS_saver = 105
+        } else if(pesovolumetricoNPUPS > 8 && pesovolumetricoNPUPS <= 9){
+            costUPS_saver = 113.95
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 10){
+            costUPS_saver = 122.95
+        } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 12){
+            costUPS_saver = 136.96
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_saver = 158.33
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_saver = 179.68
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 20){
+            costUPS_saver = 193.93
+        } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 24){
+            costUPS_saver = 222.46
+        } else if(pesovolumetricoNPUPS > 24 && pesovolumetricoNPUPS <= 30){
+            costUPS_saver = 263.86
+        } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 35){
+            costUPS_saver = 291.94
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_saver = 320.46
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_saver = 348.97
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_saver = 377.51
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_saver = 406.03
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_saver = 434.54
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_saver = 463.08
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_saver = 491.59
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_saver = Math.floor(pesovolumetricoNPUPS)*7.02
+        }
+    }
+    if(areaUPSsaver == 12){
+        if(pesovolumetricoNPUPS <= 1){
+            costUPS_saver = 21.11
+        } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 2){
+            costUPS_saver = 27.17
+        } else if(pesovolumetricoNPUPS > 2 && pesovolumetricoNPUPS <= 3){
+            costUPS_saver = 32.91
+        } else if(pesovolumetricoNPUPS > 3 && pesovolumetricoNPUPS <= 4){
+            costUPS_saver = 37.83
+        } else if(pesovolumetricoNPUPS > 4 && pesovolumetricoNPUPS <= 5){
+            costUPS_saver = 42.76
+        } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 7){
+            costUPS_saver = 51.22
+        } else if(pesovolumetricoNPUPS > 7 && pesovolumetricoNPUPS <= 8){
+            costUPS_saver = 55.50
+        } else if(pesovolumetricoNPUPS > 8 && pesovolumetricoNPUPS <= 9){
+            costUPS_saver = 59.72
+        } else if(pesovolumetricoNPUPS > 9 && pesovolumetricoNPUPS <= 10){
+            costUPS_saver = 63.98
+        } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 12){
+            costUPS_saver = 69.89
+        } else if(pesovolumetricoNPUPS > 12 && pesovolumetricoNPUPS <= 15){
+            costUPS_saver = 78.75
+        } else if(pesovolumetricoNPUPS > 15 && pesovolumetricoNPUPS <= 18){
+            costUPS_saver = 87.63
+        } else if(pesovolumetricoNPUPS > 18 && pesovolumetricoNPUPS <= 20){
+            costUPS_saver = 93.52
+        } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 24){
+            costUPS_saver = 105.97
+        } else if(pesovolumetricoNPUPS > 24 && pesovolumetricoNPUPS <= 30){
+            costUPS_saver = 123.99
+        } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 35){
+            costUPS_saver = 135.38
+        } else if(pesovolumetricoNPUPS > 35 && pesovolumetricoNPUPS <= 40){
+            costUPS_saver = 146.75
+        } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 45){
+            costUPS_saver = 158.12
+        } else if(pesovolumetricoNPUPS > 45 && pesovolumetricoNPUPS <= 50){
+            costUPS_saver = 169.54
+        } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 55){
+            costUPS_saver = 180.88
+        } else if(pesovolumetricoNPUPS > 55 && pesovolumetricoNPUPS <= 60){
+            costUPS_saver = 192.26
+        } else if(pesovolumetricoNPUPS > 60 && pesovolumetricoNPUPS <= 65){
+            costUPS_saver = 203.63
+        } else if(pesovolumetricoNPUPS > 65 && pesovolumetricoNPUPS <= 70){
+            costUPS_saver = 215.03
+        } else if(pesovolumetricoNPUPS > 70){
+            costUPS_saver = Math.floor(pesovolumetricoNPUPS)*3.07
         }
     }
 }
 
-
-
+// UPS standard cost
+        // takes UPS Area number and volumetric weight
+        // returns the ups express cost
+        function calcolo_costo_UPS_standard(areaUPSstandard, pesovolumetricoNPUPS){
+            if(areaUPSstandard == 1){
+                if(pesovolumetricoNPUPS <= 1){
+                    costUPS_standard = 8.07
+                } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 5){
+                    costUPS_standard = 8.66
+                } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 10){
+                    costUPS_standard = 9.15
+                } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 20){
+                    costUPS_standard = 10.28
+                } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 30){
+                    costUPS_standard = 13.22
+                } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 40){
+                    costUPS_standard = 16.06
+                } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 50){
+                    costUPS_standard = 18.89
+                } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 70){
+                    costUPS_standard = 25.62
+                } else if(pesovolumetricoNPUPS > 70){
+                    costUPS_standard = Math.floor(pesovolumetricoNPUPS)*0
+                }
+            }    
+            if(areaUPSstandard == 2){
+                if(pesovolumetricoNPUPS <= 1){
+                    costUPS_standard = 10.18
+                } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 5){
+                    costUPS_standard = 11.18
+                } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 10){
+                    costUPS_standard = 12.47
+                } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 20){
+                    costUPS_standard = 14.89
+                } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 30){
+                    costUPS_standard = 20.28
+                } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 40){
+                    costUPS_standard = 25.65
+                } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 50){
+                    costUPS_standard = 30.99
+                } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 70){
+                    costUPS_standard = 40.37
+                } else if(pesovolumetricoNPUPS > 70){
+                    costUPS_standard = Math.floor(pesovolumetricoNPUPS)*0
+                }
+            }                
+            if(areaUPSstandard == 3){
+                if(pesovolumetricoNPUPS <= 1){
+                    costUPS_standard = 8.95
+                } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 5){
+                    costUPS_standard = 12.97
+                } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 10){
+                    costUPS_standard = 19.24
+                } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 20){
+                    costUPS_standard = 20.11
+                } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 30){
+                    costUPS_standard = 21.33
+                } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 40){
+                    costUPS_standard = 22
+                } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 50){
+                    costUPS_standard = 25
+                } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 70){
+                    costUPS_standard = 28.01
+                } else if(pesovolumetricoNPUPS > 70){
+                    costUPS_standard = Math.floor(pesovolumetricoNPUPS)*0
+                }
+            } 
+            if(areaUPSstandard == 4){
+                if(pesovolumetricoNPUPS <= 1){
+                    costUPS_standard = 8.95
+                } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 5){
+                    costUPS_standard = 13.30
+                } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 10){
+                    costUPS_standard = 19.76
+                } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 20){
+                    costUPS_standard = 20.92
+                } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 30){
+                    costUPS_standard = 22.58
+                } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 40){
+                    costUPS_standard = 23.48
+                } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 50){
+                    costUPS_standard = 26.41
+                } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 70){
+                    costUPS_standard = 31.60
+                } else if(pesovolumetricoNPUPS > 70){
+                    costUPS_standard = Math.floor(pesovolumetricoNPUPS)*0
+                }
+            } 
+            if(areaUPSstandard == 5){
+                if(pesovolumetricoNPUPS <= 1){
+                    costUPS_standard = 8.98
+                } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 5){
+                    costUPS_standard = 13.81
+                } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 10){
+                    costUPS_standard = 20.34
+                } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 20){
+                    costUPS_standard = 21.64
+                } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 30){
+                    costUPS_standard = 23.56
+                } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 40){
+                    costUPS_standard = 24.61
+                } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 50){
+                    costUPS_standard = 27.58
+                } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 70){
+                    costUPS_standard = 32.72
+                } else if(pesovolumetricoNPUPS > 70){
+                    costUPS_standard = Math.floor(pesovolumetricoNPUPS)*0
+                }
+            } 
+            if(areaUPSstandard == 51){
+                if(pesovolumetricoNPUPS <= 1){
+                    costUPS_standard = 8.98
+                } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 5){
+                    costUPS_standard = 14.08
+                } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 10){
+                    costUPS_standard = 20.79
+                } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 20){
+                    costUPS_standard = 24.16
+                } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 30){
+                    costUPS_standard = 27.35
+                } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 40){
+                    costUPS_standard = 29.50
+                } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 50){
+                    costUPS_standard = 32.02
+                } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 70){
+                    costUPS_standard = 37.91
+                } else if(pesovolumetricoNPUPS > 70){
+                    costUPS_standard = Math.floor(pesovolumetricoNPUPS)*0
+                }
+            }  
+            if(areaUPSstandard == 52){
+                if(pesovolumetricoNPUPS <= 1){
+                    costUPS_standard = 10.23
+                } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 5){
+                    costUPS_standard = 26.38
+                } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 10){
+                    costUPS_standard = 43.32
+                } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 20){
+                    costUPS_standard = 48.66
+                } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 30){
+                    costUPS_standard = 55.60
+                } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 40){
+                    costUPS_standard = 61.16
+                } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 50){
+                    costUPS_standard = 66.74
+                } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 70){
+                    costUPS_standard = 80.02
+                } else if(pesovolumetricoNPUPS > 70){
+                    costUPS_standard = Math.floor(pesovolumetricoNPUPS)*0
+                }
+            }  
+            if(areaUPSstandard == 6){
+                if(pesovolumetricoNPUPS <= 1){
+                    costUPS_standard = 14.98
+                } else if(pesovolumetricoNPUPS > 1 && pesovolumetricoNPUPS <= 5){
+                    costUPS_standard = 25.91
+                } else if(pesovolumetricoNPUPS > 5 && pesovolumetricoNPUPS <= 10){
+                    costUPS_standard = 37.85
+                } else if(pesovolumetricoNPUPS > 10 && pesovolumetricoNPUPS <= 20){
+                    costUPS_standard = 45.56
+                } else if(pesovolumetricoNPUPS > 20 && pesovolumetricoNPUPS <= 30){
+                    costUPS_standard = 52.14
+                } else if(pesovolumetricoNPUPS > 30 && pesovolumetricoNPUPS <= 40){
+                    costUPS_standard = 56.87
+                } else if(pesovolumetricoNPUPS > 40 && pesovolumetricoNPUPS <= 50){
+                    costUPS_standard = 61.54
+                } else if(pesovolumetricoNPUPS > 50 && pesovolumetricoNPUPS <= 70){
+                    costUPS_standard = 71.90
+                } else if(pesovolumetricoNPUPS > 70){
+                    costUPS_standard = Math.floor(pesovolumetricoNPUPS)*0
+                }
+            }            
+            
+            
 // manca corea del nord, cuba, iran, palestina, siria, somalia
 // attenzione repubblica ceca, repubblica centrafrican, inghilterra, st.vincent, nevis
 // aggiungi ceuta, cisgiordania, curacao, repubblica dominicana, franciaCap e franciaAltro
